@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Complaint Form</title>
+    <link
+      rel="stylesheet"
+      href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css?v-2" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script type="module">
+      import * as LR from "https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.30.5/web/lr-file-uploader-regular.min.js";
+      LR.registerBlocks(LR);
+    </script>
+  </head>
+  <body>
+    <div class="wrapper" style="background: radial-gradient(#f26522, #000000)">
+      <div class="inner">
+        <form
+          id="myForm"
+          action="https://script.google.com/macros/s/AKfycbyCUpi2XLc3Y47KKaVL1rDDDrWXjIp6nGSrup00Tq34JuvPv-nX65UMQ8DagBZ8eJze/exec"
+          method="post"
+          target="hiddenFrame"
+        >
+          <h3>Complaint Form</h3>
+          <div class="form-group">
+            <input
+              name="Full Name"
+              type="text"
+              placeholder="Full Name"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-wrapper">
+            <input
+              required
+              name="Phone Number"
+              type="number"
+              placeholder="Phone Number"
+              class="form-control"
+            />
+          </div>
+          <div class="form-wrapper">
+            <input
+              name="Email"
+              type="email"
+              placeholder="Email Address"
+              class="form-control"
+              required
+            />
+            <i class="zmdi zmdi-email"></i>
+          </div>
+          <div class="form-wrapper">
+            <select name="Building Name" id class="form-control" required>
+              <option value="" disabled selected>
+                Please Select Building Name
+              </option>
+              <option value="Al Noor">Al Noor</option>
+              <option value="Al Ghadheer">Al Ghadheer</option>
+              <option value="Ruwi">Ruwi</option>
+              <option value="Al Ghobra">Al Ghobra</option>
+              <option value="Mumtaz">Mumtaz</option>
+              <option value="Walja">Walja</option>
+              <option value="Al Kuwair-33">Al Kuwair-33</option>
+              <option value="Al Kuwair-17">Al Kuwair-17</option>
+              <option value="Hamariya">Hamariya</option>
+              <option value="Muttarah">Muttarah</option>
+              <option value="Qareen">Qareen</option>
+            </select>
+            <i class="zmdi zmdi-caret-down" style="font-size: 17px"></i>
+          </div>
+          <div class="form-group">
+            <input
+              name="Flat Number"
+              type="text"
+              placeholder="Flat Number"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-wrapper">
+            <input
+              name="Issue Description"
+              type="text"
+              placeholder="Please Describe your issue"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-wrapper">
+            <label for="UploadcareUrl"
+              >Please upload an image relevant to the issue above:➡️</label
+            >
+            <lr-config
+              ctx-name="my-uploader"
+              pubkey="2519a2c0a3b3fc8a6aff"
+            ></lr-config>
+            <lr-file-uploader-regular
+              ctx-name="my-uploader"
+              css-src="https://cdn.jsdelivr.net/npm/@uploadcare/blocks@0.30.5/web/lr-file-uploader-regular.min.css"
+            ></lr-file-uploader-regular>
+          </div>
+          <button type="button" onclick="submitForm()">
+            Submit Complaint<i class="zmdi zmdi-arrow-right"></i>
+          </button>
+        </form>
+        <h1 id="thankYouMessage" style="display: none">
+          Thank you, your complaint has been registered. Our Maintenance Team will contact you shortly.
+        </h1>
+        <iframe name="hiddenFrame" style="display: none"></iframe>
+        <script>
+          function submitForm() {
+            $.ajax({
+              url: "https://script.google.com/macros/s/AKfycbyCUpi2XLc3Y47KKaVL1rDDDrWXjIp6nGSrup00Tq34JuvPv-nX65UMQ8DagBZ8eJze/exec",
+              type: "POST",
+              data: new FormData($("#myForm")[0]),
+              processData: false,
+              contentType: false,
+              success: function (data) {
+                console.log("Submit successful:", data);
+                $("#thankYouMessage").css("display", "flex");
+                $("#myForm").css("opacity", "0");
+                $("#myForm").css("pointer-events", "none");
+              },
+              error: function (error) {
+                console.error("Error:", error);
+              },
+            });
+          }
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
